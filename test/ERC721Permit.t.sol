@@ -7,9 +7,8 @@ import {ERC721Permit, MockERC721Permit} from "../src/mocks/MockERC721Permit.sol"
 contract ERC721PermitTest is Test {
     MockERC721Permit token;
 
-    bytes32 constant PERMIT_TYPEHASH = keccak256(
-        "Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)"
-    );
+    bytes32 constant PERMIT_TYPEHASH =
+        keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
 
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
     event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
@@ -30,7 +29,7 @@ contract ERC721PermitTest is Test {
         token = new MockERC721Permit("NFTToken", "NFTT");
     }
 
-    function _testArgs() internal pure returns(_TestArgs memory args) {
+    function _testArgs() internal pure returns (_TestArgs memory args) {
         args.privateKey = 0xA11CE;
         args.owner = vm.addr(0xA11CE);
         args.spender = address(1);
@@ -122,7 +121,6 @@ contract ERC721PermitTest is Test {
         args.deadline += 1;
         _permit(args);
     }
-
 
     function testPastDeadlineReverts(uint256) public {
         _TestArgs memory args = _testArgs();
